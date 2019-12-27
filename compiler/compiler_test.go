@@ -419,7 +419,7 @@ func runCompilerTests(t *testing.T, tests []compilerTestCase) {
 			t.Fatalf("testInstructions failed: %s", err)
 		}
 
-		err = testConstants(t, tt.expectedConstants, bytecode.Constants)
+		err = testConstants(tt.expectedConstants, bytecode.Constants)
 		if err != nil {
 			t.Fatalf("testConstants failed: %s", err)
 		}
@@ -964,11 +964,7 @@ func concatInstructions(s []code.Instructions) code.Instructions {
 	return out
 }
 
-func testConstants(
-	t *testing.T,
-	expected []interface{},
-	actual []object.Object,
-) error {
+func testConstants(expected []interface{}, actual []object.Object) error {
 	if len(expected) != len(actual) {
 		return fmt.Errorf("wrong number of constants. got=%d, want=%d",
 			len(actual), len(expected))

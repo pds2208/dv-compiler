@@ -430,13 +430,13 @@ func TestCallingFunctionsWithWrongArguments(t *testing.T) {
 		comp := compiler.New()
 		err := comp.Compile(program)
 		if err != nil {
-			t.Fatalf("compiler error: %s", err)
+			t.Fatalf("Error: compiler error: %s", err)
 		}
 
 		vm := New(comp.Bytecode())
 		err = vm.Run()
 		if err == nil {
-			t.Fatalf("expected VM error but resulted in none.")
+			t.Fatalf("Error: expected VM error but resulted in none.")
 		}
 
 		if err.Error() != tt.expected {
@@ -620,13 +620,13 @@ func runVmTests(t *testing.T, tests []vmTestCase) {
 		comp := compiler.New()
 		err := comp.Compile(program)
 		if err != nil {
-			t.Fatalf("compiler error: %s", err)
+			t.Fatalf("Error: compiler error: %s", err)
 		}
 
 		vm := New(comp.Bytecode())
 		err = vm.Run()
 		if err != nil {
-			t.Fatalf("vm error: %s", err)
+			t.Fatalf("Error: vm error: %s", err)
 		}
 
 		stackElem := vm.LastPoppedStackElem()

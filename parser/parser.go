@@ -119,12 +119,12 @@ func (p *Parser) Errors() []string {
 
 func (p *Parser) peekError(t token.TokenType) {
 	msg := fmt.Sprintf("Line %d: Expected next token to be %s, got %s instead",
-		p.l.Line, t, p.peekToken.Type)
+		p.l.GetLine(), t, p.peekToken.Type)
 	p.errors = append(p.errors, msg)
 }
 
 func (p *Parser) noPrefixParseFnError(t token.TokenType) {
-	msg := fmt.Sprintf("Line %d: Invalid statement near %s", p.l.Line, t)
+	msg := fmt.Sprintf("Line %d: Invalid statement near %s", p.l.GetLine(), t)
 	p.errors = append(p.errors, msg)
 }
 

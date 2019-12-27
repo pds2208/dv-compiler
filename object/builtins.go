@@ -10,7 +10,7 @@ var Builtins = []struct {
 		"len",
 		&Builtin{Fn: func(args ...Object) Object {
 			if len(args) != 1 {
-				return newError("wrong number of arguments. got=%d, want=1",
+				return newError("Incorrect number of arguments - expected: 1, given: %d",
 					len(args))
 			}
 
@@ -20,7 +20,7 @@ var Builtins = []struct {
 			case *String:
 				return &Integer{Value: int64(len(arg.Value))}
 			default:
-				return newError("argument to `len` not supported, got %s",
+				return newError("The argument to `len` is not supported, given: %s",
 					args[0].Type())
 			}
 		},
@@ -41,11 +41,11 @@ var Builtins = []struct {
 		"first",
 		&Builtin{Fn: func(args ...Object) Object {
 			if len(args) != 1 {
-				return newError("wrong number of arguments. got=%d, want=1",
+				return newError("Incorrect number of arguments - expected: 1, given: %d",
 					len(args))
 			}
 			if args[0].Type() != ARRAY_OBJ {
-				return newError("argument to `first` must be ARRAY, got %s",
+				return newError("The argument to `first` must be an ARRAY, given: %s",
 					args[0].Type())
 			}
 
@@ -62,11 +62,11 @@ var Builtins = []struct {
 		"last",
 		&Builtin{Fn: func(args ...Object) Object {
 			if len(args) != 1 {
-				return newError("wrong number of arguments. got=%d, want=1",
+				return newError("Incorrect number of arguments - expected: 1, given: %d",
 					len(args))
 			}
 			if args[0].Type() != ARRAY_OBJ {
-				return newError("argument to `last` must be ARRAY, got %s",
+				return newError("The argument to `last` must be an ARRAY, given: %s",
 					args[0].Type())
 			}
 
@@ -84,11 +84,11 @@ var Builtins = []struct {
 		"rest",
 		&Builtin{Fn: func(args ...Object) Object {
 			if len(args) != 1 {
-				return newError("wrong number of arguments. got=%d, want=1",
+				return newError("Incorrect number of arguments - expected: 1, given: %d",
 					len(args))
 			}
 			if args[0].Type() != ARRAY_OBJ {
-				return newError("argument to `rest` must be ARRAY, got %s",
+				return newError("The argument to `rest` must be an ARRAY, given: %s",
 					args[0].Type())
 			}
 
@@ -108,11 +108,11 @@ var Builtins = []struct {
 		"push",
 		&Builtin{Fn: func(args ...Object) Object {
 			if len(args) != 2 {
-				return newError("wrong number of arguments. got=%d, want=2",
+				return newError("Incorrect number of arguments - expected: 2, given: %d",
 					len(args))
 			}
 			if args[0].Type() != ARRAY_OBJ {
-				return newError("argument to `push` must be ARRAY, got %s",
+				return newError("The argument to `push` must be an ARRAY, given: %s",
 					args[0].Type())
 			}
 

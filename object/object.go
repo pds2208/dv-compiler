@@ -104,7 +104,7 @@ type Error struct {
 }
 
 func (e *Error) Type() ObjectType { return ERROR_OBJ }
-func (e *Error) Inspect() string  { return "ERROR: " + e.Message }
+func (e *Error) Inspect() string  { return e.Message }
 
 type Function struct {
 	Parameters []*ast.Identifier
@@ -116,7 +116,7 @@ func (f *Function) Type() ObjectType { return FUNCTION_OBJ }
 func (f *Function) Inspect() string {
 	var out bytes.Buffer
 
-	params := []string{}
+	var params []string
 	for _, p := range f.Parameters {
 		params = append(params, p.String())
 	}
@@ -139,7 +139,7 @@ func (s *String) Type() ObjectType { return STRING_OBJ }
 func (s *String) Inspect() string  { return s.Value }
 func (s *String) HashKey() HashKey {
 	h := fnv.New64a()
-	h.Write([]byte(s.Value))
+	_, _ = h.Write([]byte(s.Value))
 
 	return HashKey{Type: s.Type(), Value: h.Sum64()}
 }
@@ -159,7 +159,7 @@ func (ao *Array) Type() ObjectType { return ARRAY_OBJ }
 func (ao *Array) Inspect() string {
 	var out bytes.Buffer
 
-	elements := []string{}
+	var elements []string
 	for _, e := range ao.Elements {
 		elements = append(elements, e.Inspect())
 	}

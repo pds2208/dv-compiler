@@ -15,13 +15,13 @@ func (ins Instructions) String() string {
 	for i < len(ins) {
 		def, err := Lookup(ins[i])
 		if err != nil {
-			fmt.Fprintf(&out, "ERROR: %s\n", err)
+			_, _ = fmt.Fprintf(&out, "%s", err)
 			continue
 		}
 
 		operands, read := ReadOperands(def, ins[i+1:])
 
-		fmt.Fprintf(&out, "%04d %s\n", i, ins.fmtInstruction(def, operands))
+		_, _ = fmt.Fprintf(&out, "%04d %s\n", i, ins.fmtInstruction(def, operands))
 
 		i += 1 + read
 	}
@@ -33,7 +33,7 @@ func (ins Instructions) fmtInstruction(def *Definition, operands []int) string {
 	operandCount := len(def.OperandWidths)
 
 	if len(operands) != operandCount {
-		return fmt.Sprintf("ERROR: operand len %d does not match defined %d\n",
+		return fmt.Sprintf("operand len %d does not match defined %d\n",
 			len(operands), operandCount)
 	}
 
@@ -46,7 +46,7 @@ func (ins Instructions) fmtInstruction(def *Definition, operands []int) string {
 		return fmt.Sprintf("%s %d %d", def.Name, operands[0], operands[1])
 	}
 
-	return fmt.Sprintf("ERROR: unhandled operandCount for %s\n", def.Name)
+	return fmt.Sprintf("unhandled operandCount for %s\n", def.Name)
 }
 
 type Opcode byte

@@ -24,9 +24,9 @@ func Start(engine *string) {
 	}
 
 	readLine, err := readline.NewEx(&readline.Config{
-		Prompt:      ">> ",
-		HistoryFile: "/tmp/readline.tmp",
-		InterruptPrompt: "^C",
+		Prompt:            ">> ",
+		HistoryFile:       "/tmp/readline.tmp",
+		InterruptPrompt:   "^C",
 		HistorySearchFold: true,
 	})
 
@@ -71,7 +71,9 @@ func Start(engine *string) {
 			comp := compiler.NewWithState(symbolTable, constants)
 			err = comp.Compile(program)
 			if err != nil {
-				fmt.Printf("Error: %s\n", err)
+				a := strings.Split(err.Error(), " ")
+				msg := strings.Title(a[0]) + " " + strings.Join(a[1:], " ")
+				fmt.Println("Error: " + msg)
 				continue
 			}
 
@@ -86,7 +88,9 @@ func Start(engine *string) {
 			}
 
 			lastPopped := machine.LastPoppedStackElem()
-			fmt.Println(lastPopped.Inspect())
+			if lastPopped != nil {
+				fmt.Println(lastPopped.Inspect())
+			}
 		} else {
 			result := evaluator.Eval(program, env)
 			if result != nil {

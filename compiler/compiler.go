@@ -200,7 +200,7 @@ func (c *Compiler) Compile(node ast.Node) error {
 	case *ast.Identifier:
 		symbol, ok := c.symbolTable.Resolve(node.Value)
 		if !ok {
-			return fmt.Errorf("undefined variable %s", node.Value)
+			return fmt.Errorf("the variable '%s' is undefined", node.Value)
 		}
 
 		c.loadSymbol(symbol)
