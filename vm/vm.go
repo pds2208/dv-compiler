@@ -84,8 +84,7 @@ func (vm *VM) Run() error {
 			vm.pop()
 
 		case code.OpAdd, code.OpSub, code.OpMul, code.OpDiv:
-			err := vm.executeBinaryOperation(op)
-			if err != nil {
+			if err := vm.executeBinaryOperation(op); err != nil {
 				return err
 			}
 
@@ -346,7 +345,7 @@ func (vm *VM) executeBinaryNumberOperation(op code.Opcode, left, right object.Ob
 	}
 
 	if right.Type() == object.INTEGER_OBJ {
-		rightValue =  float64(right.(*object.Integer).Value)
+		rightValue = float64(right.(*object.Integer).Value)
 	} else {
 		rightValue = right.(*object.Float).Value
 	}
@@ -377,7 +376,7 @@ func (vm *VM) executeComparison(op code.Opcode) error {
 	right := vm.pop()
 	left := vm.pop()
 
-	if  (left.Type() == object.INTEGER_OBJ || left.Type() == object.FLOAT_OBJ) &&
+	if (left.Type() == object.INTEGER_OBJ || left.Type() == object.FLOAT_OBJ) &&
 		(right.Type() == object.INTEGER_OBJ || right.Type() == object.FLOAT_OBJ) {
 		return vm.executeNumericComparison(op, left, right)
 	}
